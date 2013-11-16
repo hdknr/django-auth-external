@@ -8,26 +8,16 @@ if __name__ == '__main__':
         sys.exit(1) 
 
     #: django path
-    sys.argv[1] = os.path.abspath( sys.argv[1]  )
-    sys.path.append(os.path.dirname(sys.argv[1]))  
-    sys.path.append(sys.argv[1]) 
+    settings_path = os.path.abspath( sys.argv[1]  )
+    BASE_DIR = os.path.dirname(settings_path) 
 
-    #: argv[1] is manage.py command 
-    sys.argv[1] = os.path.basename( __file__ )
+    sys.path.insert(0, os.path.dirname( BASE_DIR ) )
+    sys.path.insert(0, BASE_DIR )
 
-    from django.core.management import execute_manager
-    import imp
-    try:
-        imp.find_module('settings') # Assumed to be in the same directory.
-    except ImportError:
-        import sys
-        sys.stderr.write(str(sys.path))
-        sys.stderr.write("Error: Can't find the file 'settings.py' in the directory containing %r. It appears you've customized things.\nYou'll have to run django-admin.py, passing it your settings module.\n" % __file__)
-        sys.exit(1)
-    
-    import settings
-    
-    try:
-        execute_manager(settings)
-    except:
-        print traceback.format_exc() 
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE",  
+            ".".join( settings_path.rsplit('.')[0].split('/')[-2:]) )
+
+    sys.argv.pop(1)
+
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(sys.argv)
