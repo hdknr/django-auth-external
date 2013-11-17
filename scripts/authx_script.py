@@ -18,6 +18,8 @@ if __name__ == '__main__':
             ".".join( settings_path.rsplit('.')[0].split('/')[-2:]) )
 
     sys.argv.pop(1)
+    if len(sys.argv) < 2:
+        sys.argv.append('authn')            #:defautl command
 
     from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
