@@ -1,5 +1,22 @@
 ''' 
 '''
+import inspect
+def info(msg):
+    frm = inspect.stack()[1]
+    mod = inspect.getmodule(frm[0])
+    print frm
+    print '[%s] %s' % (mod.__name__, msg)
+
+import sys
+import syslog
+
+def check_password(environ, user, password):
+    syslog.openlog(sys.argv[0], syslog.LOG_PID|syslog.LOG_PERROR, syslog.LOG_LOCAL0)
+    for p in sys.path:
+        syslog.syslog(syslog.LOG_INFO, '@@@@'+ p )
+    return True
+
+
 if __name__ == '__main__':
     import sys,os
     import traceback
