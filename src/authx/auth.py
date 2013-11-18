@@ -14,7 +14,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings")
 from authx.auth import *
 '''
 
-__all__=['check_password', ]
+__all__=['check_password','groups_for_user','get_realm_hash', ]
 
 import syslog,sys
 
@@ -31,3 +31,19 @@ def authuser(usr,pwd,groups=[]):
 def check_password(environ, user, password):
     return authuser(user,password)
 
+def groups_for_user(environ, user):
+    ''' mod-wsgi groups
+    '''
+    from django.contrib.auth.models import User
+    try:
+        return map(lambda g:g.name.encode('ascii') , User.objects.get(username=user).groups.all() )
+    except:
+        return [""]
+
+def get_realm_hash(environ, user, realm):
+    ''' mod-wsgi digest authentication handler
+
+    .. tod::
+        implement later. ( http://code.google.com/p/modwsgi/wiki/AccessControlMechanisms )
+    '''
+    return None
