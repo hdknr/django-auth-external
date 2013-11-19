@@ -240,24 +240,6 @@
   }
 },
 {
-  "pk": 1, 
-  "model": "auth.user", 
-  "fields": {
-    "username": "admin", 
-    "first_name": "", 
-    "last_name": "", 
-    "is_active": true, 
-    "is_superuser": true, 
-    "is_staff": true, 
-    "last_login": "2013-11-16T19:53:24.255Z", 
-    "groups": [], 
-    "user_permissions": [], 
-    "password": "pbkdf2_sha256$12000$dng5OcQGj4YP$Fsf6hc7ig9JGb2m6TIhJCvqa0J8EJdLKxWPQyMzNPEo=", 
-    "email": "admin@admin.admin", 
-    "date_joined": "2013-11-16T19:52:40.710Z"
-  }
-},
-{
   "pk": 2, 
   "model": "auth.user", 
   "fields": {
