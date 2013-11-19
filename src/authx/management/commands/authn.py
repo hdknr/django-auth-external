@@ -7,7 +7,6 @@ import os,sys
 
 import logging,traceback
 logger = logging.getLogger(__name__)
-logger.debug("logger name:"+ __name__ )
 
 class Command(GenericCommand):
 

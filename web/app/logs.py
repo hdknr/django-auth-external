@@ -113,5 +113,10 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,                                              
         },
+        'authx.models':{
+            'handlers': ['syslog',],
+            'level': 'DEBUG',
+            'propagate': False,                                              
+        },
     },
 }
