@@ -28,19 +28,21 @@ import hashlib
 old_set_password = User.set_password
 
 def set_password(user, raw_password):
-    if user.id == None:
-        user.save()
-
     try:
-        # generate password for mod_auth_mysql  Basic Authentication
-        # TODO: get algorighm from basi.enc
-
-        basic,created = Basic.objects.get_or_create(user=user,username=user.username )
-        basic.password = hashlib.sha1(raw_password).hexdigest()   
-        basic.salt = "none"
-        basic.save()
-    except :
-        map( lambda e:logger.error(e), traceback.format_exc().split('\n'))
+        if user.id == None:
+            user.save()
+        try:
+            # generate password for mod_auth_mysql  Basic Authentication
+            # TODO: get algorighm from basi.enc
+    
+            basic,created = Basic.objects.get_or_create(user=user,username=user.username )
+            basic.password = hashlib.sha1(raw_password).hexdigest()   
+            basic.salt = "none"
+            basic.save()
+        except :
+            map( lambda e:logger.error(e), traceback.format_exc().split('\n'))
+    except:
+        pass
             
 
     old_set_password(user, raw_password)
